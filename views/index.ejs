@@ -1,0 +1,66 @@
+<head>
+  <title>SAML App</title>
+  <meta charset="utf-8">
+  <style>
+    body {
+      padding: 3rem;
+      font-size: 16px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 15rem;
+      font-family: "Lucida Console", Monaco, monospace;
+      font-size: 0.8rem;
+      line-height: 1.2;
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+
+</head>
+
+<body>
+  <% if (!user) { %>
+    <h2>Welcome! Please log in.</h2>
+    <button onclick="window.location.href='/login'">Login</button>
+    <% } else { %>
+
+      <p>Email: <%= user.email %>
+      </p>
+
+      <p>Name ID: <%= user['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'] %>
+      </p>
+      <p>Name: <%= user['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'] %>
+      </p>
+      <div>
+        <!-- <textarea name="" id="conditions" cols="30" rows="4"></textarea>
+        <textarea name="" id="subject" cols="30" rows="4"></textarea>
+        <textarea name="" id="attributes" cols="30" rows="10"></textarea>
+        <textarea name="" id="authnStatement" cols="30" rows="2"></textarea>
+        <textarea name="" id="signature" cols="30" rows="10"></textarea> -->
+        <textarea name="" id="xml" cols="30" rows="70"></textarea>
+      </div>
+      <br />
+      <br />
+      <button onclick="window.location.href='/logout'">Logout</button>
+      <script>
+
+
+        //  alert(htmlDecode('<%= user.assertion %>'));
+        window.onload = function () {
+          var xml = `<%- user.SamlResponse %>`;
+          // var myVar = <!-- <%- JSON.stringify(user.userData, undefined, 10) %> -->;
+          // $('#conditions').text(JSON.stringify(JSON.parse(myVar.conditions), undefined, 4));
+          // $('#subject').text(JSON.stringify(JSON.parse(myVar.subject), undefined, 4));
+          // $('#attributes').text(myVar.attributes);
+          // //var x = JSON.stringify(myVar.attributes);
+          // $('#authnStatement').text(myVar.authnStatement);
+          // $('#signature').text(myVar.signature);
+
+          $('#xml').text(xml);
+
+        };
+      </script>
+      <% } %>
+</body>
