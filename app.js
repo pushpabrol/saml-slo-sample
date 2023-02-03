@@ -77,6 +77,7 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 app.use(session({
+  name: 'session-' + process.env.PORT,
   secret: process.env.SESSIONSECRET,
   resave: true,
   saveUninitialized: true
